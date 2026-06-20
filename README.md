@@ -12,20 +12,37 @@ score = Σ  w_i · exp(-(d_i / 1.25)²)
 
 where `d_i` is the minimum distance from interaction site `i` to the nearest matching-family ligand atom, subject to no steric clashes with exclusion spheres.
 
+## Default Paths (Competition Environment)
+
+When run **without arguments**, the solver reads and writes from the competition container paths:
+
+| | Path |
+|---|---|
+| **Input** | `/root/data/targets.json` |
+| **Output** | `/root/results/docked_poses.sdf` |
+
+For local development, if `/root/data/targets.json` does not exist the solver automatically falls back to `targets.json` in the project directory.
+
 ## Quick Start
 
 ```bash
 # Install dependencies
 pip install -r requirements.txt
 
-# Run (auto-detects local targets.json)
-python -m pharmacophore_alignment
+# Run with default paths (/root/data/targets.json → /root/results/docked_poses.sdf)
+python run.py
 
-# With explicit paths
-python -m pharmacophore_alignment --input targets.json --output poses.sdf
+# Or as a package
+python -m src
+
+# Or directly
+python src/cli.py
+
+# With explicit paths (local development)
+python run.py --input targets.json --output poses.sdf
 
 # Verbose mode (per-conformer details, timing, debug info)
-python -m pharmacophore_alignment --verbose
+python run.py --verbose
 ```
 
 ## Project Structure
@@ -34,12 +51,13 @@ python -m pharmacophore_alignment --verbose
 .
 ├── README.md                         # This file
 ├── requirements.txt                  # Python dependencies
-├── targets.json                      # Input data (5 targets)
+├── run.py                            # Entry point (use from project root)
+├── targets.json                      # Input data (5 targets, local dev copy)
 ├── docked_poses.sdf                  # Output (generated)
 │
-└── pharmacophore_alignment/          # Main package
+└── src/                              # Main package
     ├── __init__.py                   # Package version
-    ├── __main__.py                   # python -m entry point
+    ├── __main__.py                   # python -m src entry point
     ├── cli.py                        # CLI, argument parsing, I/O, summary table
     │
     └── core/                         # Algorithm modules
