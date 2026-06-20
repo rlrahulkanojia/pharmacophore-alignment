@@ -4,6 +4,10 @@ Objective functions for rigid-body optimisation.
 Two variants:
 - ``objective_full``: standard objective with clash penalty.
 - ``objective_score_only``: ignores clashes (for basin discovery).
+
+NOTE: For hot-path use, prefer ``ScoringContext.objective()`` from
+scoring.py which avoids function-call overhead.  These standalone
+functions are kept for backward compatibility (DE, basin-hopping args).
 """
 
 from .geometry import apply_transform

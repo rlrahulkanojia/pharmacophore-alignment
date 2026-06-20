@@ -2,7 +2,7 @@
 
 from .features import identify_features
 from .geometry import get_coords, apply_transform
-from .scoring import compute_score, has_clash, clash_penalty, excl_arrays
+from .scoring import compute_score, has_clash, clash_penalty, excl_arrays, ScoringContext
 from .objectives import objective_full, objective_score_only
 from .alignment import (
     centroid_translation,
@@ -24,6 +24,7 @@ __all__ = [
     "has_clash",
     "clash_penalty",
     "excl_arrays",
+    "ScoringContext",
     "objective_full",
     "objective_score_only",
     "centroid_translation",
