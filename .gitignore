@@ -7,3 +7,5 @@ build/
 .eggs/
 *.sdf
 .claude/
+*.pdf
+*.sdf
