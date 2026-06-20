@@ -3,9 +3,12 @@ Command-line interface.
 
 Usage::
 
-    python -m pharmacophore_alignment
-    python -m pharmacophore_alignment --input targets.json --output poses.sdf
-    python -m pharmacophore_alignment --verbose
+    python run.py
+    python run.py --input targets.json --output poses.sdf --verbose
+
+    # Or as a package from the project root:
+    python -m src
+    python -m src --verbose
 
 In the competition container the defaults resolve to
 ``/root/data/targets.json`` → ``/root/results/docked_poses.sdf``.
@@ -17,6 +20,13 @@ import os
 import sys
 import time
 import warnings
+
+# ── Allow running as `python src/cli.py` (fixes relative imports) ──
+if __name__ == "__main__" and __package__ is None:
+    _here = os.path.dirname(os.path.abspath(__file__))
+    _root = os.path.dirname(_here)
+    sys.path.insert(0, _root)
+    __package__ = os.path.basename(_here)
 
 from rdkit import Chem, RDLogger
 
@@ -133,3 +143,7 @@ def main():
     log.info("Output: %s", output_path)
     log.info("Time:   %.1fs", elapsed)
     log.info("=" * 60)
+
+
+if __name__ == "__main__":
+    main()
